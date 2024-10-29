@@ -71,7 +71,15 @@ public class Key {
 	public void paint (Graphics g) {
 		// TODO: Change this to handle the different key colors
 		// and different key states (pressed down or not).
-		g.setColor(Color.BLACK);
+		if(_isOn){
+			if(_polygon.npoints==4){ // black keys are rectangles, white keys have more points
+				g.setColor(Color.BLACK);
+			}else{
+				g.setColor(Color.WHITE);
+			}
+		} else {
+			g.setColor(Color.GRAY);
+		}
 		g.fillPolygon(_polygon);
 		g.drawPolygon(_polygon);
 	}
