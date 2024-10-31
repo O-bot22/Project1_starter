@@ -9,8 +9,7 @@ import java.util.*;
 public class PianoMouseListener extends MouseAdapter {
 	// You are free to add more instance variables if you wish.
 	private List<Key> _keys;
-	private int old_x;
-	private int old_y;
+	private int old_key_index;
 
 	/**
 	 * @param keys the list of keys in the piano.
@@ -32,7 +31,13 @@ public class PianoMouseListener extends MouseAdapter {
 		boolean key_state = false;
 		for(int i=0; i<_keys.size(); i++){
 			key_state = _keys.get(i).getPolygon().contains(x_pos, y_pos);
-			_keys.get(i).play(key_state);
+			if(key_state){
+				if(i != old_key_index){
+					// if a different key is pressed then play it, and the old one will stop
+					_keys.get(i).play(key_state);
+				}
+				old_key_index = i;
+			}
 		}
 	}
 
